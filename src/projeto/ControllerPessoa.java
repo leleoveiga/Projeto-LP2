@@ -42,7 +42,6 @@ public class ControllerPessoa {
 		}
 	}
 	
-	//Feito exceção até pessoa inexistente
 	public void cadastraDeputado(String dni, String dataInicio) {
 		if(pessoas.containsKey(dni)) {
 			pessoas.get(dni).viraDeputado(dataInicio);
