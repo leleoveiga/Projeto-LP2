@@ -4,8 +4,8 @@ import easyaccept.EasyAccept;
 
 public class ECO {
 	private ControllerPessoa controllerPessoa;
-	
-	
+	//linha 7
+	//linha 8
 	public static void main(String[] args) {
 		args = new String[]{"projeto.ECO", "Testes/use_case_1.txt"};
 		EasyAccept.main(args);
