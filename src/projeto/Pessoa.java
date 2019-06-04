@@ -22,7 +22,7 @@ public class Pessoa {
 	public void viraDeputado(String dataInicio) {
 		this.deputacao = new Deputado(dataInicio);
 	}
-	public boolean ehDeputado() {
+	public boolean verificaDeputado() {
 		if(deputacao == null) {
 			return false;
 		}else {
@@ -32,7 +32,7 @@ public class Pessoa {
 	}
 	@Override
 	public String toString() {
-		if(!ehDeputado()) {
+		if(!verificaDeputado()) {
 			if(partido == null) {
 				return nome + " - " + dni +" (" + estado + ") - " + "Interesses:"  + interesses ;
 			}else {

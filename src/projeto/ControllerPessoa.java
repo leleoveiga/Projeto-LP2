@@ -3,11 +3,20 @@ package projeto;
 import java.util.HashMap;
 
 public class ControllerPessoa {
+	private Validacao validacao;
 	private HashMap<String,Pessoa> pessoas;
 	public ControllerPessoa(){
 		this.pessoas = new HashMap<String,Pessoa>();
+		this.validacao = new Validacao();
 	}
-	public void cadastraPessoa(String nome, String dni, String estado, String interesses) {
+	public void cadastraPessoa(String nome, String dni, String estado, String interesses) throws Exception {
+		validacao.validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+		validacao.validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		validacao.validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		if (dni.contains("^[a-Z]")) {
+			throw new Exception("Erro ao cadastrar pessoa: dni invalido");
+		}
+		
 		if(!pessoas.containsKey(dni)) {		
 			Pessoa pessoa = new Pessoa(nome, dni, estado, interesses);
 			pessoas.put(dni, pessoa);
@@ -16,6 +25,9 @@ public class ControllerPessoa {
 		}
 	}
 	public void cadastraPessoa(String nome, String dni, String estado, String interesses, String partido) {
+		validacao.validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+		validacao.validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		validacao.validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
 		if(!pessoas.containsKey(dni)) {
 			Pessoa pessoa = new Pessoa(nome, dni, estado, interesses, partido);
 			pessoas.put(dni, pessoa);
