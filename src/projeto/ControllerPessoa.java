@@ -14,7 +14,7 @@ public class ControllerPessoa {
 		validacao.validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
 		validacao.validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
 				
-		if (dni.contains("^[a-Z]") || dni.length() > 11 || dni.contains(".") ) {
+		if (dni.contains("^[a-Z]") || dni.length() > 11 || dni.contains(".") || dni.contains(" ")) {
 			throw new Exception("Erro ao cadastrar pessoa: dni invalido");
 		}
 		
@@ -30,7 +30,7 @@ public class ControllerPessoa {
 		validacao.validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
 		validacao.validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
 		
-		if (dni.contains("^[a-Z]") || dni.length() != 11 || dni.contains(".") ) {
+		if (dni.contains("^[a-Z]") || dni.length() != 11 || dni.contains(".") || dni.contains(" ")) {
 			throw new Exception("Erro ao cadastrar pessoa: dni invalido");
 		}
 		
