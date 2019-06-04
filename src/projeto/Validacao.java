@@ -9,7 +9,7 @@ public class Validacao {
     public void validaString(String string , String msg) {
         if(string.trim().isEmpty() )
             throw new IllegalArgumentException(msg);
-        else if(string == null) {
+        if(string == null) {
             throw new NullPointerException(msg);
         }
     }

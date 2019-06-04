@@ -5,7 +5,6 @@ import easyaccept.EasyAccept;
 public class ECO {
 	private ControllerPessoa controllerPessoa;
 
-	//teste
 	public static void main(String[] args) {
 		args = new String[]{"projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt"};
 		EasyAccept.main(args);
@@ -21,6 +20,9 @@ public class ECO {
 	}
 	public String exibirPessoa(String DNI) {
 		return this.controllerPessoa.exibirPessoa(DNI);
+	}
+	public void cadastrarDeputado(String dni, String dataDeInicio) throws Exception {
+		this.controllerPessoa.cadastraDeputado(dni, dataDeInicio);
 	}
 	
 }
