@@ -13,7 +13,8 @@ public class ControllerPessoa {
 		validacao.validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		validacao.validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
 		validacao.validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-		if (dni.contains("^[a-Z]")) {
+				
+		if (dni.contains("^[a-Z]") || dni.length() > 11 || dni.contains(".") ) {
 			throw new Exception("Erro ao cadastrar pessoa: dni invalido");
 		}
 		
@@ -21,18 +22,23 @@ public class ControllerPessoa {
 			Pessoa pessoa = new Pessoa(nome, dni, estado, interesses);
 			pessoas.put(dni, pessoa);
 		}else {
-			throw new IllegalArgumentException("pessoa ja existe.");
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		}
 	}
-	public void cadastraPessoa(String nome, String dni, String estado, String interesses, String partido) {
+	public void cadastraPessoa(String nome, String dni, String estado, String interesses, String partido) throws Exception {
 		validacao.validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		validacao.validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
 		validacao.validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		
+		if (dni.contains("^[a-Z]") || dni.length() > 11 || dni.contains(".") ) {
+			throw new Exception("Erro ao cadastrar pessoa: dni invalido");
+		}
+		
 		if(!pessoas.containsKey(dni)) {
 			Pessoa pessoa = new Pessoa(nome, dni, estado, interesses, partido);
 			pessoas.put(dni, pessoa);
 		}else {
-			throw new IllegalArgumentException("pessoa ja existe.");
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		}
 	}
 	public void cadastraDeputado(String dni, String dataInicio) {
