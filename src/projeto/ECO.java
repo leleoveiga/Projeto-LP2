@@ -1,13 +1,16 @@
 package projeto;
 
-public class Facade {
+import easyaccept.EasyAccept;
+
+public class ECO {
 	private ControllerPessoa controllerPessoa;
 	
-	@SuppressWarnings("unused")
-	private ControllerDeputado controllerDeputado;
-	Facade(){
+	ECO(){
 		this.controllerPessoa = new ControllerPessoa();
-		this.controllerDeputado = new ControllerDeputado();
+	}
+	public static void main(String[] args) {
+		args = new String[] { "projeto.ECO", "testes/use_case_1.txt" , "testes/use_case_2.txt",  "testes/use_case_3.txt", "testes/use_case_4.txt" };
+		EasyAccept.main(args);
 	}
 	void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
 		this.controllerPessoa.cadastraPessoa(nome, dni, estado, interesses);
@@ -15,4 +18,8 @@ public class Facade {
 	void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
 		this.controllerPessoa.cadastraPessoa(nome, dni, estado, interesses, partido);
 	}
+	String exibirPessoa(String DNI) {
+		return this.controllerPessoa.exibirPessoa(DNI);
+	}
+	
 }

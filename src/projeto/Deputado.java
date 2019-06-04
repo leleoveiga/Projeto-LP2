@@ -2,16 +2,23 @@ package projeto;
 
 public class Deputado {
 
-	private String partido, dataInicio ;
+	private String dataInicio ;
 	private int leis;
-	public Deputado(String partido, String dataInicio, int leis){	
-		this.partido = partido;
+	public Deputado(String dataInicio){	
+		this.dataInicio = dataInicio;
+		this.leis = 0;
 	}
-	public String getPartido() {
-		return partido;
+	public String getDataInicio() {
+		return dataInicio;
 	}
-	public void setPartido(String partido) {
-		this.partido = partido;
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
 	}
-	
+	public int getLeis() {
+		return leis;
+	}
+	public void setLeis(int leis) {
+		this.leis = leis;
+	}
+
 }
