@@ -41,18 +41,20 @@ public class ControllerPessoa {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		}
 	}
+	
+	//Feito exceção até pessoa inexistente
 	public void cadastraDeputado(String dni, String dataInicio) {
 		if(pessoas.containsKey(dni)) {
 			pessoas.get(dni).viraDeputado(dataInicio);
 		}else {
-			throw new IllegalArgumentException("pessoa nao existe.");
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
 	}
 	public String exibirPessoa(String dni) {
 		if(pessoas.containsKey(dni)) {
 			return pessoas.get(dni).toString();
 		}else {
-			throw new IllegalArgumentException("pessoa nao existe.");
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
 		
 	}
