@@ -60,17 +60,18 @@ public class ControllerPessoa {
 	}
 
 	public void cadastraDeputado(String dni, String dataInicio) throws Exception {
+		if (pessoas.containsKey(dni)) {
+			pessoas.get(dni).viraDeputado(dataInicio);
+		} else {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
+		}
 		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
 		if (dataInicio.contains("^[a-Z]") || dataInicio.length() != 8 || dataInicio.contains(".")
 				|| dataInicio.contains(" ")) {
 			throw new Exception("Erro ao cadastrar deputado: data invalida");
 		}
 //		verificaDataValida(dataInicio);
-		if (pessoas.containsKey(dni)) {
-			pessoas.get(dni).viraDeputado(dataInicio);
-		} else {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
-		}
+		
 	}
 
 	public String exibirPessoa(String dni) {
