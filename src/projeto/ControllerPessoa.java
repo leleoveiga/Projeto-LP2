@@ -58,6 +58,10 @@ public class ControllerPessoa {
 		}
 		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
 		
+//		if (validaData.dataFutura(dataInicio)) {
+//			throw new Exception("Erro ao cadastrar deputado: data invalida");
+//		}
+		
 		if (pessoas.containsKey(dni)) {
 			if (validaData.isDateValid(dataInicio)) {
 

@@ -32,5 +32,7 @@ public class ECO {
 	public String exibirBase() {
 		return this.controllerGeral.exibirPartidos();
 	}
-	
+	public void cadastraComissao(String tema, String politico) {
+		controllerGeral.cadastraComissao(tema, politico);
+	}
 }
