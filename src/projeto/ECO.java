@@ -4,6 +4,7 @@ import easyaccept.EasyAccept;
 
 public class ECO {
 	private ControllerPessoa controllerPessoa;
+	private ControllerGeral controllerGeral;
 
 	public static void main(String[] args) {
 		args = new String[]{"projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt"};
@@ -11,6 +12,7 @@ public class ECO {
 	}
 	public ECO(){
 		this.controllerPessoa = new ControllerPessoa();
+		this.controllerGeral = new ControllerGeral();
 	}
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) throws Exception {
 		this.controllerPessoa.cadastraPessoa(nome, dni, estado, interesses);
@@ -23,6 +25,12 @@ public class ECO {
 	}
 	public void cadastrarDeputado(String dni, String dataDeInicio) throws Exception {
 		this.controllerPessoa.cadastraDeputado(dni, dataDeInicio);
+	}
+	public void cadastrarPartido(String partido) {
+		this.controllerGeral.cadastrarPartido(partido);
+	}
+	public String exibirBase() {
+		return this.controllerGeral.exibirPartidos();
 	}
 	
 }

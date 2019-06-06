@@ -48,7 +48,7 @@ expectError "Erro ao cadastrar deputado: dni nao pode ser vazio ou nulo" cadastr
 # dni invalido
 expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni=" 22222222-0" dataDeInicio="29022016"
 expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni="A22222222-0" dataDeInicio="29022016"
-expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni="022222222-A" dataDeInicio="29022016"
+expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni="022222222-A" dataDeInicio="29022016" 
 expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni="022222222-." dataDeInicio="29022016"
 
 # precedência do dni

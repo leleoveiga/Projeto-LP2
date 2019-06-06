@@ -4,7 +4,7 @@ public class Pessoa {
 
 	private String nome, dni, estado, interesses, partido;
 	private Deputado deputacao;
-	private Validacao validacao;
+
 	
 
 	public Pessoa(String nome, String dni, String estado, String interesses) {

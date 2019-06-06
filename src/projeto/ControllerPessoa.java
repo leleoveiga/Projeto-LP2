@@ -4,11 +4,13 @@ import java.util.HashMap;
 
 public class ControllerPessoa {
 	private Validacao validacao;
+	private ValidacaoData validaData;
 	private HashMap<String, Pessoa> pessoas;
 
 	public ControllerPessoa() {
 		this.pessoas = new HashMap<String, Pessoa>();
 		this.validacao = new Validacao();
+		this.validaData = new ValidacaoData();
 	}
 
 	public void cadastraPessoa(String nome, String dni, String estado, String interesses) throws Exception {
@@ -27,19 +29,6 @@ public class ControllerPessoa {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		}
 	}
-
-//	public void verificaDataValida(String dataInicio) throws Exception {
-//		int ano = Integer.parseInt(dataInicio.substring(4, 7));
-//		int mes = Integer.parseInt(dataInicio.substring(2, 3));
-//		int dia = Integer.parseInt(dataInicio.substring(0, 1));
-//		if (mes == 02) {
-//			if (ano % 400 == 0 || (ano % 4 == 0 && ano % 100 != 0)) {
-//				if (dia >= 29) {
-//					throw new Exception("Erro ao cadastrar deputado: data invalida");
-//				}
-//			}
-//		}
-//	}
 
 	public void cadastraPessoa(String nome, String dni, String estado, String interesses, String partido)
 			throws Exception {
@@ -60,18 +49,27 @@ public class ControllerPessoa {
 	}
 
 	public void cadastraDeputado(String dni, String dataInicio) throws Exception {
+		validacao.validaString(dni, "Erro ao cadastrar deputado: dni nao pode ser vazio ou nulo");
+		if (dni.contains("^[a-Z]") || dni.length() != 11 || dni.contains(".") || dni.contains(" ")) {
+            throw new Exception("Erro ao cadastrar deputado: dni invalido");
+        }
+		if(!pessoas.containsKey(dni)) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
+		}
+		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+		
 		if (pessoas.containsKey(dni)) {
-			pessoas.get(dni).viraDeputado(dataInicio);
+			if (validaData.isDateValid(dataInicio)) {
+
+				pessoas.get(dni).viraDeputado(dataInicio);
+
+			} else {
+				throw new Exception("Erro ao cadastrar deputado: data invalida");
+			}
 		} else {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
 		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
-		if (dataInicio.contains("^[a-Z]") || dataInicio.length() != 8 || dataInicio.contains(".")
-				|| dataInicio.contains(" ")) {
-			throw new Exception("Erro ao cadastrar deputado: data invalida");
-		}
-//		verificaDataValida(dataInicio);
-		
 	}
 
 	public String exibirPessoa(String dni) {
