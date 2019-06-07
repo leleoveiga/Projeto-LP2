@@ -81,7 +81,6 @@ public class ControllerPessoa {
 		} else {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
-//		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
 		
 		if (!validaData.dataFutura(dataInicio)) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: data futura");
