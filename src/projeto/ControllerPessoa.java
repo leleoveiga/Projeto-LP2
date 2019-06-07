@@ -93,7 +93,7 @@ public class ControllerPessoa {
 		if (pessoas.containsKey(dni)) {
 			return pessoas.get(dni).toString();
 		} else {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
+			throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
 		}
 
 	}

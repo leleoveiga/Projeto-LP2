@@ -45,10 +45,14 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		if (!verificaDeputado()) {
-			if (partido == null) {
-				return nome + " - " + dni + " (" + estado + ") - " + "Interesses:" + interesses;
+			if ((partido == null || partido.trim().isEmpty()) && !interesses.trim().isEmpty()) {
+				return nome + " - " + dni + " (" + estado + ") - " + "Interesses: " + interesses;
+			} else if (!interesses.trim().isEmpty()) {
+				return nome + " - " + dni + " (" + estado + ") - " + partido + " - Interesses: " + interesses;
+			} else if (partido != null) {
+				return nome + " - " + dni + " (" + estado + ") - " + partido;
 			} else {
-				return nome + " - " + dni + " (" + estado + ") - " + partido + " - Interesses:" + interesses;
+				return nome + " - " + dni + " (" + estado + ")";
 			}
 		} else {
 			return "POL: " + nome + " - " + dni + " (" + estado + ") - " + partido + " - Interesses: " + interesses

@@ -7,7 +7,7 @@ public class ECO {
 	private ControllerGeral controllerGeral;
 
 	public static void main(String[] args) {
-		args = new String[]{"projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt"};
+		args = new String[]{"projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt", "Testes/use_case_3.txt"};
 		EasyAccept.main(args);
 	}
 	public ECO(){
