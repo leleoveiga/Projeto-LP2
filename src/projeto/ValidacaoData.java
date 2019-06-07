@@ -8,7 +8,7 @@ import java.time.format.ResolverStyle;
 import java.util.Date;
 
 public class ValidacaoData {
-	public static boolean isDateValid(String strDate) {
+	public boolean isDateValid(String strDate) {
 		String dateFormat = "ddMMuuuu";
 
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormat)
