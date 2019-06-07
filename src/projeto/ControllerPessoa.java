@@ -50,6 +50,8 @@ public class ControllerPessoa {
 	}
 
 	public void cadastraDeputado(String dni, String dataInicio) throws Exception {
+		
+		
 		validacao.validaString(dni, "Erro ao cadastrar deputado: dni nao pode ser vazio ou nulo");
 
 		if (!Character.isDigit(dni.charAt(10)) || dni.length() != 11 || dni.contains(".") || dni.contains(" ")) {
@@ -79,7 +81,12 @@ public class ControllerPessoa {
 		} else {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
-		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+//		validacao.validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+		
+		if (!validaData.dataFutura(dataInicio)) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data futura");
+		}
+		
 	}
 
 	public String exibirPessoa(String dni) {

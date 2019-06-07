@@ -35,15 +35,11 @@ public class ValidacaoData {
 		int ano_atual = Integer.parseInt(data_atualFormatado.substring(4, 8));
 		int mes_atual = Integer.parseInt(data_atualFormatado.substring(2, 4));
 		int dia_atual = Integer.parseInt(data_atualFormatado.substring(0, 2));
-		if (ano <= ano_atual) {
-			if (mes <= mes_atual) {
-				if (dia <= dia_atual) {
-					return true;
-				}
-			}
+
+		if ((ano < ano_atual) || (ano == ano_atual && mes < mes_atual) || (ano == ano_atual && mes == mes_atual && dia <= dia_atual)) {
+			return true;
 		} else {
 			return false;
 		}
-		throw new Exception();
 	}
 }
