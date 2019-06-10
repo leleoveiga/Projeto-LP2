@@ -33,9 +33,13 @@ public class ControllerGeral {
 		
 	}
 
-	public void cadastraComissao(String tema, String politicos) {
+	public void cadastraComissao(String tema, String politicos) throws Exception {
+		validacao.validaString(tema, "Erro ao cadastrar comissao: tema nao pode ser vazio ou nulo");
+		validacao.validaString(politicos, "Erro ao cadastrar comissao: lista de politicos nao pode ser vazio ou nulo");
 		if (!comissao.containsKey(tema)) {
 			comissao.put(tema, politicos);
+		}else {
+			throw new Exception("Erro ao cadastrar comissao: tema existente");
 		}
 	}
 }
