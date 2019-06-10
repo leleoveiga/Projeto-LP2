@@ -1,5 +1,6 @@
 package projeto;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +8,11 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Date;
 
+import javax.swing.JFormattedTextField;
+
 public class ValidacaoData {
+	SimpleDateFormat formato;
+
 	public boolean isDateValid(String strDate) {
 		String dateFormat = "ddMMuuuu";
 
@@ -36,10 +41,13 @@ public class ValidacaoData {
 		int mes_atual = Integer.parseInt(data_atualFormatado.substring(2, 4));
 		int dia_atual = Integer.parseInt(data_atualFormatado.substring(0, 2));
 
-		if ((ano < ano_atual) || (ano == ano_atual && mes < mes_atual) || (ano == ano_atual && mes == mes_atual && dia <= dia_atual)) {
+		if ((ano < ano_atual) || (ano == ano_atual && mes < mes_atual)
+				|| (ano == ano_atual && mes == mes_atual && dia <= dia_atual)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
+	
 }

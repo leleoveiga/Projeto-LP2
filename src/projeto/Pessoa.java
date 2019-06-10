@@ -4,9 +4,10 @@ public class Pessoa {
 
 	private String nome, dni, estado, interesses, partido;
 	private Deputado deputacao;
-
 	
-
+	
+	
+	
 	public Pessoa(String nome, String dni, String estado, String interesses) {
 		this.nome = nome;
 		this.dni = dni;
@@ -14,6 +15,7 @@ public class Pessoa {
 		this.interesses = interesses;
 		this.partido = null;
 		this.deputacao = null;
+		
 	}
 
 	public Pessoa(String nome, String dni, String estado, String interesses, String partido) {
@@ -55,8 +57,13 @@ public class Pessoa {
 				return nome + " - " + dni + " (" + estado + ")";
 			}
 		} else {
+			if(!interesses.trim().isEmpty()) {
 			return "POL: " + nome + " - " + dni + " (" + estado + ") - " + partido + " - Interesses: " + interesses
-					+ " - " + deputacao.getDataInicio() + " - " + deputacao.getLeis();
+					+ " - " + deputacao.getDataInicioComBarras() + " - " + deputacao.getLeis() + " Leis";
+			}else {
+				return "POL: " + nome + " - " + dni + " (" + estado + ") - " + partido 
+						+ " - " + deputacao.getDataInicioComBarras() + " - " + deputacao.getLeis() + " Leis";
+			}
 		}
 	}
 
