@@ -16,26 +16,20 @@ public class Comissao {
 	}
 
 	public void adicionaDeputados(String dnis, HashMap pessoas) throws Exception {
-		if (dnis.length() > 11) {
+		if (dnis.length() != 11) {
 			String[] arrayDni = dnis.split(",");
-			//System.out.println(toStringSplit(arrayDni));
-			//validacao.verificaDniExistente(arrayDni, pessoas);
-			for (String dni: arrayDni) {
-				deputados.add(dni);
+			for (String dni : arrayDni) {
+				validacao.validaDni(dni, "Erro ao cadastrar comissao: dni invalido");
+				if (pessoas.containsKey(arrayDni)) {
+					validacao.validaDni(dni, "Erro ao cadastrar comissao: dni invalido");
+					deputados.add(dni);
+				}
 			}
-		} else {
-			validacao.verificaDniExistente(dnis, pessoas);
-			deputados.add(dnis);
+
+		} else if (!pessoas.containsKey(dnis)) {
+			throw new Exception("Erro ao cadastrar comissao: pessoa inexistente");
 		}
 
-	}
-	
-	private String toStringSplit(String[] array) {
-		String saida = "";
-		for(String string: array) {
-			saida += string + "//\n";
-		}
-		return saida + "\n";
 	}
 
 	public String getNome() {
