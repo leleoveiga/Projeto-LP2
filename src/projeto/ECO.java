@@ -8,7 +8,7 @@ public class ECO {
 
 	public static void main(String[] args) {
 		args = new String[] { "projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt", "Testes/use_case_3.txt",
-				"Testes/use_case_4.txt", "Testes/use_case_5.txt" };
+				"Testes/use_case_4.txt", "Testes/use_case_5.txt", "Testes/use_case_6.txt"  };
 		EasyAccept.main(args);
 	}
 
