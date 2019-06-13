@@ -103,4 +103,8 @@ public class ControllerPessoa {
 		}
 
 	}
+
+	public HashMap<String, Pessoa> getPessoas() {
+		return pessoas;
+	}
 }

@@ -14,7 +14,7 @@ public class ECO {
 
 	public ECO() {
 		this.controllerPessoa = new ControllerPessoa();
-		this.controllerGeral = new ControllerGeral();
+		this.controllerGeral = new ControllerGeral(controllerPessoa.getPessoas());
 	}
 
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) throws Exception {
