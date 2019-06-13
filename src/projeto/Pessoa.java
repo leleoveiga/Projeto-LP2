@@ -5,9 +5,6 @@ public class Pessoa {
 	private String nome, dni, estado, interesses, partido;
 	private Deputado deputacao;
 	
-	
-	
-	
 	public Pessoa(String nome, String dni, String estado, String interesses) {
 		this.nome = nome;
 		this.dni = dni;

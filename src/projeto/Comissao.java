@@ -15,20 +15,24 @@ public class Comissao {
 		this.validacao = new Validacao();
 	}
 
-	public void adicionaDeputados(String dnis, HashMap pessoas) throws Exception {
-		if (dnis.length() != 11) {
+	public void adicionaDeputados(String dnis, HashMap<String ,Pessoa> pessoas) throws Exception {
 			String[] arrayDni = dnis.split(",");
 			for (String dni : arrayDni) {
 				validacao.validaDni(dni, "Erro ao cadastrar comissao: dni invalido");
-				if (pessoas.containsKey(arrayDni)) {
-					validacao.validaDni(dni, "Erro ao cadastrar comissao: dni invalido");
-					deputados.add(dni);
+				if (pessoas.containsKey(dni)) {
+					if(pessoas.get(dni).verificaDeputado()) {
+						deputados.add(dni);
+					}else {
+						throw new Exception("Erro ao cadastrar comissao: pessoa nao eh deputado");
+					}
+				
+				}
+				else if (!pessoas.containsKey(dni)) {
+					throw new Exception("Erro ao cadastrar comissao: pessoa inexistente");
 				}
 			}
 
-		} else if (!pessoas.containsKey(dnis)) {
-			throw new Exception("Erro ao cadastrar comissao: pessoa inexistente");
-		}
+		
 
 	}
 
