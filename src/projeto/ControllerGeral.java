@@ -46,5 +46,39 @@ public class ControllerGeral {
 		} else {
 			throw new Exception("Erro ao cadastrar comissao: tema existente");
 		}
+		
 	}
+
+	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+		validacao.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+		validacao.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
+		PL leiPL = new PL(dni, ano, ementa, interesses, url, conclusivo);
+		
+	}
+
+	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+		validacao.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+		validacao.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+		validacao.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
+		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
+	
+	}
+
+	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+		validacao.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+		validacao.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+		validacao.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
+		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
+	
+		
+	}
+	
+	
 }

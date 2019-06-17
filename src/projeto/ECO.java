@@ -45,4 +45,14 @@ public class ECO {
 	public void cadastrarComissao(String tema, String politico) throws Exception {
 		controllerGeral.cadastraComissao(tema, politico);
 	}
+	
+	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+		controllerGeral.cadastrarPL(dni,ano,ementa,interesses,url,conclusivo);
+	}
+	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url,String artigos) {
+		controllerGeral.cadastrarPLP(dni,ano,ementa,interesses,url,artigos);
+	}
+	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url,String artigos) {
+		controllerGeral.cadastrarPEC(dni,ano,ementa,interesses,url,artigos);
+	}
 }
