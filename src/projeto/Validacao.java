@@ -5,21 +5,25 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Validacao {
 	SimpleDateFormat formato;
+
 	@SuppressWarnings("unused")
 	public void validaString(String string, String msg) {
 		if (string.trim().isEmpty())
 			throw new IllegalArgumentException(msg);
-		if (string == null) 
+		if (string == null)
 			throw new NullPointerException(msg);
-		
+
 	}
-	public void validaDni(String string , String msg) {
-		if (!Character.isDigit(string.charAt(10)) || string.length() != 11 || string.contains(".") || string.contains(" ")) {
+
+	public void validaDni(String string, String msg) {
+		if (!Character.isDigit(string.charAt(10)) || string.length() != 11 || string.contains(".")
+				|| string.contains(" ")) {
 			throw new IllegalArgumentException(msg);
 		}
 
@@ -56,7 +60,6 @@ public class Validacao {
 //		else if (!pessoas.containsKey(dni))
 //			throw new Exception("Erro ao cadastrar comissao: pessoa inexistente");
 //	}
-	
 
 	public boolean isDateValid(String strDate) {
 		String dateFormat = "ddMMuuuu";
@@ -92,6 +95,17 @@ public class Validacao {
 		} else {
 			return false;
 		}
+	}
+
+	public void validaAno(int ano) throws Exception {
+		Calendar calendario = Calendar.getInstance();
+		if (calendario.get(Calendar.YEAR) < ano) {
+			throw new Exception("Erro ao cadastrar projeto: ano posterior ao ano atual");
+		}
+		if(ano<1988) {
+			throw new Exception("Erro ao cadastrar projeto: ano anterior a 1988");
+		}
+		
 	}
 
 }

@@ -57,53 +57,86 @@ public class ControllerGeral {
 		
 	}
 
-	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) throws Exception {
 		validacao.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validacao.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
-		if (!contadorPL.containsKey(ano)) {
-			contadorPL.put(ano, 0);
+		if(pessoas.containsKey(dni)) {
+			if (pessoas.get(dni).verificaDeputado()) {
+				validacao.validaAno(ano);
+				if (!contadorPL.containsKey(ano)) {
+					contadorPL.put(ano, 0);
+				}
+				contadorPL.put(ano, contadorPL.get(ano)+1);
+				String codigo = contadorPL.get(ano).toString();
+				PL leiPL = new PL(codigo, dni, ano, ementa, interesses, url, conclusivo);
+				leis.put(codigo, leiPL);
+			}else {
+				throw new Exception("Erro ao cadastrar projeto: pessoa nao eh deputado");
+			}
+			
+		}else {
+			throw new Exception("Erro ao cadastrar projeto: pessoa inexistente");
 		}
-		contadorPL.put(ano, contadorPL.get(ano)+1);
-		String codigo = contadorPL.get(ano).toString();
-		PL leiPL = new PL(codigo, dni, ano, ementa, interesses, url, conclusivo);
-		leis.put(codigo, leiPL);
+		
 		
 	}
 
-	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) throws Exception {
 		validacao.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validacao.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validacao.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
 		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
-		if (!contadorPLP.containsKey(ano)) {
-			contadorPLP.put(ano, 0);
+		if (pessoas.containsKey(dni)) {
+			validacao.validaAno(ano);
+			if(pessoas.get(dni).verificaDeputado()) {
+				if (!contadorPLP.containsKey(ano)) {
+					contadorPLP.put(ano, 0);
+				}
+				contadorPL.put(ano, contadorPL.get(ano)+1);
+				String codigo = contadorPLP.get(ano).toString();
+				PLP leiPLP = new PLP(codigo, dni, ano, ementa, interesses, url, artigos);
+				leis.put(codigo, leiPLP);
+			}else {
+				throw new Exception("Erro ao cadastrar projeto: pessoa nao eh deputado");
+			}
+			
+		}else {
+			throw new Exception("Erro ao cadastrar projeto: pessoa inexistente");
 		}
-		contadorPL.put(ano, contadorPL.get(ano)+1);
-		String codigo = contadorPLP.get(ano).toString();
-		PLP leiPLP = new PLP(codigo, dni, ano, ementa, interesses, url, artigos);
-		leis.put(codigo, leiPLP);
+		
 	
 	}
 
-	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) throws Exception {
 		validacao.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validacao.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validacao.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
 		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
-		if (!contadorPEC.containsKey(ano)) {
-			contadorPEC.put(ano, 0);
+		if(pessoas.containsKey(dni)) {
+			if(pessoas.get(dni).verificaDeputado()) {
+				validacao.validaAno(ano);
+				if (!contadorPEC.containsKey(ano)) {
+					contadorPEC.put(ano, 0);
+				}
+				contadorPEC.put(ano, contadorPEC.get(ano)+1);
+				String codigo = contadorPEC.get(ano).toString();
+				PEC leiPEC = new PEC(codigo, dni, ano, ementa, interesses, url, artigos);
+				leis.put(codigo, leiPEC);
+			}else {
+				throw new Exception("Erro ao cadastrar projeto: pessoa nao eh deputado");
+			}
+			
+		}else {
+			throw new Exception("Erro ao cadastrar projeto: pessoa inexistente");
 		}
-		contadorPEC.put(ano, contadorPEC.get(ano)+1);
-		String codigo = contadorPEC.get(ano).toString();
-		PEC leiPEC = new PEC(codigo, dni, ano, ementa, interesses, url, artigos);
-		leis.put(codigo, leiPEC);
+		
 	
 		
 	}

@@ -46,13 +46,13 @@ public class ECO {
 		controllerGeral.cadastraComissao(tema, politico);
 	}
 	
-	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) throws Exception {
 		controllerGeral.cadastrarPL(dni,ano,ementa,interesses,url,conclusivo);
 	}
-	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url,String artigos) {
+	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
 		controllerGeral.cadastrarPLP(dni,ano,ementa,interesses,url,artigos);
 	}
-	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url,String artigos) {
+	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
 		controllerGeral.cadastrarPEC(dni,ano,ementa,interesses,url,artigos);
 	}
 }
