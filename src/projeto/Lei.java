@@ -6,13 +6,13 @@ public abstract class Lei {
 	protected int ano;
 	
 	
-	public Lei(String dni, int ano ,String ementa, String interesses, String url) {
+	public Lei(String dni, int ano ,String ementa, String interesses, String url, String codigo) {
 		this.dni  = dni;
 		this.ementa = ementa;
 		this.interesses = interesses;
 		this.url = url;
 		this.ano = ano;
-		
+		this.codigo = codigo;
 	}
 	
 	

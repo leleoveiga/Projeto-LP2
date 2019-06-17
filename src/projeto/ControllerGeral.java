@@ -10,12 +10,20 @@ public class ControllerGeral {
 	private Map<String, Comissao> comissoes;
 	private Validacao validacao;
 	private HashMap<String, Pessoa> pessoas;
+	private HashMap<String, Lei> leis;
+	private HashMap<Integer, Integer> contadorPL;
+	private HashMap<Integer, Integer> contadorPLP;
+	private HashMap<Integer, Integer> contadorPEC;
 
 	public ControllerGeral(HashMap<String, Pessoa> pessoas) {
 		this.partidos = new HashSet<String>();
 		this.comissoes = new HashMap<String, Comissao>();
 		this.validacao = new Validacao();
 		this.pessoas = pessoas;
+		this.leis = new HashMap<>();
+		this.contadorPL = new HashMap<>();
+		this.contadorPLP = new HashMap<>();
+		this.contadorPEC = new HashMap<>();
 	}
 
 	public void cadastrarPartido(String partido) {
@@ -55,7 +63,13 @@ public class ControllerGeral {
 		validacao.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
-		PL leiPL = new PL(dni, ano, ementa, interesses, url, conclusivo);
+		if (!contadorPL.containsKey(ano)) {
+			contadorPL.put(ano, 0);
+		}
+		contadorPL.put(ano, contadorPL.get(ano)+1);
+		String codigo = contadorPL.get(ano).toString();
+		PL leiPL = new PL(codigo, dni, ano, ementa, interesses, url, conclusivo);
+		leis.put(codigo, leiPL);
 		
 	}
 
@@ -66,6 +80,13 @@ public class ControllerGeral {
 		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validacao.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
 		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
+		if (!contadorPLP.containsKey(ano)) {
+			contadorPLP.put(ano, 0);
+		}
+		contadorPL.put(ano, contadorPL.get(ano)+1);
+		String codigo = contadorPLP.get(ano).toString();
+		PLP leiPLP = new PLP(codigo, dni, ano, ementa, interesses, url, artigos);
+		leis.put(codigo, leiPLP);
 	
 	}
 
@@ -76,6 +97,13 @@ public class ControllerGeral {
 		validacao.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validacao.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
 		validacao.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
+		if (!contadorPEC.containsKey(ano)) {
+			contadorPEC.put(ano, 0);
+		}
+		contadorPEC.put(ano, contadorPEC.get(ano)+1);
+		String codigo = contadorPEC.get(ano).toString();
+		PEC leiPEC = new PEC(codigo, dni, ano, ementa, interesses, url, artigos);
+		leis.put(codigo, leiPEC);
 	
 		
 	}
