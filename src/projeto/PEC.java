@@ -1,6 +1,6 @@
 package projeto;
 
-public class PEC extends Lei{
+public class PEC extends Lei {
 	private String situacaoAtual;
 	private String artigos;
 
@@ -10,7 +10,16 @@ public class PEC extends Lei{
 		this.artigos = artigos;
 	}
 
+	@Override
+	public String toString() {
+		String[] artigosSplit = artigos.split(",");
+		String artigosFormatado = "";
+		for (String i : artigosSplit) {
+			artigosFormatado += i + ", ";
+		}
 
-	
+		return "Projeto de Emenda Constitucional - " + codigo + " - " + dni + " - " + ementa + " - "
+				+ artigosFormatado.substring(0, artigosFormatado.length() - 2) + " - " + situacaoAtual;
+	}
 
 }

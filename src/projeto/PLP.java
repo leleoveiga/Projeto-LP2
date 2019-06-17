@@ -10,6 +10,13 @@ public class PLP extends Lei {
 		this.artigos = artigos;
 	}
 
+	@Override
+	public String toString() {
+		return "Projeto de Lei Complementar - " + codigo + " - " + dni + " - " + ementa + " - " + artigos + " - " + situacaoAtual ;
+	}
+	
+	
+
 	
 
 }

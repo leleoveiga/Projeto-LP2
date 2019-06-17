@@ -10,4 +10,14 @@ public class PL extends Lei{
 		this.situacaoAtual = "EM VOTACAO (CCJC)";
 		this.conclusivo = conclusivo;
 	}
+	
+	public String toString() {
+		String conclusiva;
+		if (conclusivo) {
+			conclusiva = "Conclusiva - ";
+		} else {
+			conclusiva = "";
+		}
+		return "Projeto de Lei - " + codigo + " - " + dni + " - " + ementa + " - " + conclusiva + situacaoAtual;
+	}
 }

@@ -70,7 +70,7 @@ public class ControllerGeral {
 					contadorPL.put(ano, 0);
 				}
 				contadorPL.put(ano, contadorPL.get(ano)+1);
-				String codigo = contadorPL.get(ano).toString();
+				String codigo = "PL " + contadorPL.get(ano).toString() + "/" + ano;
 				PL leiPL = new PL(codigo, dni, ano, ementa, interesses, url, conclusivo);
 				leis.put(codigo, leiPL);
 			}else {
@@ -97,8 +97,8 @@ public class ControllerGeral {
 				if (!contadorPLP.containsKey(ano)) {
 					contadorPLP.put(ano, 0);
 				}
-				contadorPL.put(ano, contadorPL.get(ano)+1);
-				String codigo = contadorPLP.get(ano).toString();
+				contadorPLP.put(ano, contadorPLP.get(ano)+1);
+				String codigo = "PLP " + contadorPLP.get(ano).toString() + "/" + ano;
 				PLP leiPLP = new PLP(codigo, dni, ano, ementa, interesses, url, artigos);
 				leis.put(codigo, leiPLP);
 			}else {
@@ -126,7 +126,7 @@ public class ControllerGeral {
 					contadorPEC.put(ano, 0);
 				}
 				contadorPEC.put(ano, contadorPEC.get(ano)+1);
-				String codigo = contadorPEC.get(ano).toString();
+				String codigo = "PEC " + contadorPEC.get(ano).toString() + "/" + ano;
 				PEC leiPEC = new PEC(codigo, dni, ano, ementa, interesses, url, artigos);
 				leis.put(codigo, leiPEC);
 			}else {
@@ -139,6 +139,10 @@ public class ControllerGeral {
 		
 	
 		
+	}
+	
+	public String exibirProjeto(String codigo) {
+		return leis.get(codigo).toString();
 	}
 	
 	

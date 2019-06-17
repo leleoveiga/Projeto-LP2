@@ -8,7 +8,7 @@ public class ECO {
 
 	public static void main(String[] args) {
 		args = new String[] { "projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt", "Testes/use_case_3.txt",
-				"Testes/use_case_4.txt", "Testes/use_case_5.txt", "Testes/use_case_6.txt"  };
+				"Testes/use_case_4.txt", "Testes/use_case_5.txt", "Testes/use_case_6.txt", "Testes/use_case_7.txt"  };
 		EasyAccept.main(args);
 	}
 
@@ -49,10 +49,18 @@ public class ECO {
 	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) throws Exception {
 		controllerGeral.cadastrarPL(dni,ano,ementa,interesses,url,conclusivo);
 	}
+	
 	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
 		controllerGeral.cadastrarPLP(dni,ano,ementa,interesses,url,artigos);
 	}
+	
 	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
 		controllerGeral.cadastrarPEC(dni,ano,ementa,interesses,url,artigos);
 	}
+	
+	public String exibirProjeto(String codigo) {
+		return controllerGeral.exibirProjeto(codigo);
+	}
+	
+	
 }

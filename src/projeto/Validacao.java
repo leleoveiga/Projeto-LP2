@@ -105,7 +105,6 @@ public class Validacao {
 		if(ano<1988) {
 			throw new Exception("Erro ao cadastrar projeto: ano anterior a 1988");
 		}
-		
 	}
 
 }
