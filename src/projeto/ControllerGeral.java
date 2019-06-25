@@ -151,16 +151,19 @@ public class ControllerGeral {
 			throw new IllegalArgumentException("Erro ao votar proposta: CCJC nao cadastrada");
 		}
 		validacao.validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");
-//		if(!statusGovernista.equals("GOVERNISTA") || !statusGovernista.equals("OPOSICAO") || !statusGovernista.equals("LIVRE")) {
-//			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
-//		}
-		if (!leis.containsKey(codigo)) {
-			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
-		}
+		if(statusGovernista.equals("GOVERNISTA") || statusGovernista.equals("OPOSICAO") || statusGovernista.equals("LIVRE")) {
+            if (!leis.containsKey(codigo)) {
+                throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
+        }
 
 		int participantes = comissoes.get("CCJC").qntDeputados();
 		int votosSim = 0;
 		String[] interessesLei = leis.get("CCJC").getInteresses().split(",");
+		
 		for (String dni : comissoes.get("CCJC").getDeputados()) {
 
 			if (statusGovernista.equals("LIVRE")) {
