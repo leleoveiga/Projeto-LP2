@@ -1,7 +1,6 @@
 package projeto;
 
 public class PEC extends Lei {
-	private String situacaoAtual;
 	private String artigos;
 
 	public PEC(String codigo, String dni, int ano, String ementa, String interesses, String url, String artigos) {

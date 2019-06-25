@@ -46,20 +46,28 @@ public class ECO {
 		controllerGeral.cadastraComissao(tema, politico);
 	}
 	
-	public void cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) throws Exception {
-		controllerGeral.cadastrarPL(dni,ano,ementa,interesses,url,conclusivo);
+	public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) throws Exception {
+		return controllerGeral.cadastrarPL(dni,ano,ementa,interesses,url,conclusivo);
 	}
 	
-	public void cadastrarPLP(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
-		controllerGeral.cadastrarPLP(dni,ano,ementa,interesses,url,artigos);
+	public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
+		return controllerGeral.cadastrarPLP(dni,ano,ementa,interesses,url,artigos);
 	}
 	
-	public void cadastrarPEC(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
-		controllerGeral.cadastrarPEC(dni,ano,ementa,interesses,url,artigos);
+	public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url,String artigos) throws Exception {
+		return controllerGeral.cadastrarPEC(dni,ano,ementa,interesses,url,artigos);
 	}
 	
 	public String exibirProjeto(String codigo) {
 		return controllerGeral.exibirProjeto(codigo);
+	}
+	
+	public void votarComissao(String codigo, String statusGovernista, String proximoLocal) throws Exception {
+		controllerGeral.votarComissao(codigo, statusGovernista, proximoLocal);
+	}
+	
+	public void votarPlenario(String codigo, String statusGovernista, String presentes) {
+		controllerGeral.votarPlenario(codigo, statusGovernista, presentes);
 	}
 	
 	

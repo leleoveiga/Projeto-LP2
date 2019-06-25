@@ -1,7 +1,6 @@
 package projeto;
 
 public class PLP extends Lei {
-	private String situacaoAtual;
 	private String artigos;
 	
 	public PLP(String codigo, String dni, int ano, String ementa, String interesses, String url, String artigos) {

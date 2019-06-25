@@ -35,6 +35,14 @@ public class Comissao {
 		
 
 	}
+	
+	public int qntDeputados() {
+		return deputados.size();
+	}
+
+	public List<String> getDeputados() {
+		return deputados;
+	}
 
 	public String getNome() {
 		return nome;

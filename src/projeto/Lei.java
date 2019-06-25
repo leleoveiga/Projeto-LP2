@@ -2,7 +2,7 @@ package projeto;
 
 public abstract class Lei {
 	
-	protected String dni, ementa, interesses, url, codigo;
+	protected String dni, ementa, interesses, url, codigo, situacaoAtual;
 	protected int ano;
 	
 	
@@ -14,6 +14,17 @@ public abstract class Lei {
 		this.ano = ano;
 		this.codigo = codigo;
 	}
+
+
+	public String getInteresses() {
+		return interesses;
+	}
+
+
+	public String getSituacaoAtual() {
+		return situacaoAtual;
+	}
+	
 	
 	
 	
