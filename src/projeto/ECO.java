@@ -8,7 +8,7 @@ public class ECO {
 
 	public static void main(String[] args) {
 		args = new String[] { "projeto.ECO", "Testes/use_case_1.txt", "Testes/use_case_2.txt", "Testes/use_case_3.txt",
-				"Testes/use_case_4.txt", "Testes/use_case_5.txt", "Testes/use_case_6.txt", "Testes/use_case_7.txt"  };
+				"Testes/use_case_4.txt", "Testes/use_case_5.txt", "Testes/use_case_7.txt"  };
 		EasyAccept.main(args);
 	}
 
@@ -62,8 +62,8 @@ public class ECO {
 		return controllerGeral.exibirProjeto(codigo);
 	}
 	
-	public void votarComissao(String codigo, String statusGovernista, String proximoLocal) throws Exception {
-		controllerGeral.votarComissao(codigo, statusGovernista, proximoLocal);
+	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) throws Exception {
+		return controllerGeral.votarComissao(codigo, statusGovernista, proximoLocal);
 	}
 	
 	public void votarPlenario(String codigo, String statusGovernista, String presentes) {

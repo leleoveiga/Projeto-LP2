@@ -147,6 +147,7 @@ public class ControllerGeral {
 	}
 
 	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) throws Exception {
+		int votosSim = 0;
 		if (!comissoes.containsKey("CCJC")) {
 			throw new IllegalArgumentException("Erro ao votar proposta: CCJC nao cadastrada");
 		}
@@ -161,8 +162,7 @@ public class ControllerGeral {
         }
 
 		int participantes = comissoes.get("CCJC").qntDeputados();
-		int votosSim = 0;
-		String[] interessesLei = leis.get("CCJC").getInteresses().split(",");
+		String[] interessesLei = leis.get(codigo).getInteresses().split(",");
 		
 		for (String dni : comissoes.get("CCJC").getDeputados()) {
 
@@ -189,10 +189,14 @@ public class ControllerGeral {
 			}
 
 			if (votosSim >= ((participantes / 2) + 1)) {
+				Lei lei = (PL) leis.get(codigo);
+				lei.setSituacaoAtual("EM VOTACAO (CTF)");
+				leis.replace(codigo, lei);
 				return true;
 			} else {
 				return false;
 			}
+			
 
 		}
 		return false;

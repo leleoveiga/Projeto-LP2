@@ -24,9 +24,10 @@ public abstract class Lei {
 	public String getSituacaoAtual() {
 		return situacaoAtual;
 	}
-	
-	
-	
-	
-	
+
+
+	public void setSituacaoAtual(String situacaoAtual) {
+		this.situacaoAtual = situacaoAtual;
+	}
+
 }
