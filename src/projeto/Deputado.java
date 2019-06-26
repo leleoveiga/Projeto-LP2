@@ -32,8 +32,8 @@ public class Deputado {
 		return leis;
 	}
 
-	public void setLeis(int leis) {
-		this.leis = leis;
+	public void adicionaLei() {
+		this.leis += 1;
 	}
 
 }

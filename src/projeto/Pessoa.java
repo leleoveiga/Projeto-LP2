@@ -47,7 +47,11 @@ public class Pessoa {
 	public String getPartido() {
 		return partido;
 	}
-
+	
+	public void adicionaLei() {
+		deputacao.adicionaLei();
+	}
+	
 	@Override
 	public String toString() {
 		if (!verificaDeputado()) {

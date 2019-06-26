@@ -2,6 +2,7 @@ package projeto;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -147,57 +148,54 @@ public class ControllerGeral {
 	}
 
 	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) throws Exception {
-		int votosSim = 0;
+		int votos = 0;
 		if (!comissoes.containsKey("CCJC")) {
 			throw new IllegalArgumentException("Erro ao votar proposta: CCJC nao cadastrada");
 		}
 		validacao.validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");
-		if(statusGovernista.equals("GOVERNISTA") || statusGovernista.equals("OPOSICAO") || statusGovernista.equals("LIVRE")) {
-            if (!leis.containsKey(codigo)) {
-                throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
-            }
-        }
-        else {
-            throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
-        }
-
-		int participantes = comissoes.get("CCJC").qntDeputados();
-		String[] interessesLei = leis.get(codigo).getInteresses().split(",");
+		if (statusGovernista.equals("GOVERNISTA") || statusGovernista.equals("OPOSICAO")
+				|| statusGovernista.equals("LIVRE")) {
+			if (!leis.containsKey(codigo)) {
+				throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
+			}
+		} else {
+			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
+		}
 		
-		for (String dni : comissoes.get("CCJC").getDeputados()) {
-
+		for (int i = 0; i < comissoes.get("CCJC").qntDeputados(); i++) {
+			List<String> deputados = (List) comissoes.get("CCJC").getDeputados();
+			if (statusGovernista.equals("GOVERNISTA")) {
+				if (partidos.contains(pessoas.get(deputados.get(i)).getPartido())) {
+					votos++;
+				}
+			}
+			if (statusGovernista.equals("OPOSICAO")) {
+				if (!partidos.contains(pessoas.get(deputados.get(i)).getPartido())) {
+					votos++;
+				}
+			}
 			if (statusGovernista.equals("LIVRE")) {
-				String[] interessesDeputado = pessoas.get(dni).getInteresses().split(",");
+				String[] interessesDeputado = pessoas.get(deputados.get(i)).getInteresses().split(",");
+				String[] interessesLei = leis.get(codigo).getInteresses().split(",");
 				for (String interesseDeputado : interessesDeputado) {
 					for (String interesseLei : interessesLei) {
-						if (interessesDeputado.equals(interesseLei)) {
-							votosSim += 1;
+						if (interesseDeputado.equals(interesseLei)) {
+							votos++;
 							break;
 						}
+						break;
 					}
-					break;
-				}
-
-			} else if (statusGovernista.equals("GOVERNISTA")) {
-				if (partidos.contains(pessoas.get(dni).getPartido())) {
-					votosSim += 1;
-				}
-			} else if (statusGovernista.equals("OPOSICAO")) {
-				if (!partidos.contains(pessoas.get(dni).getPartido())) {
-					votosSim += 1;
 				}
 			}
+		}
 
-			if (votosSim >= ((participantes / 2) + 1)) {
-				Lei lei = (PL) leis.get(codigo);
-				lei.setSituacaoAtual("EM VOTACAO (CTF)");
-				leis.replace(codigo, lei);
-				return true;
-			} else {
-				return false;
+		int participantes = comissoes.get("CCJC").qntDeputados();
+		if (votos >= ((participantes / 2) + 1)) {
+			if(!leis.get(codigo).finalizou()) {
+				leis.get(codigo).fim();
 			}
-			
-
+			leis.get(codigo).setSituacaoAtual("EM VOTACAO (" + proximoLocal + ")");
+			return true;
 		}
 		return false;
 	}

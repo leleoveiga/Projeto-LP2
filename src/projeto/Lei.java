@@ -4,6 +4,7 @@ public abstract class Lei {
 	
 	protected String dni, ementa, interesses, url, codigo, situacaoAtual;
 	protected int ano;
+	protected boolean fim;
 	
 	
 	public Lei(String dni, int ano ,String ementa, String interesses, String url, String codigo) {
@@ -13,6 +14,7 @@ public abstract class Lei {
 		this.url = url;
 		this.ano = ano;
 		this.codigo = codigo;
+		this.fim = false;
 	}
 
 
@@ -29,5 +31,14 @@ public abstract class Lei {
 	public void setSituacaoAtual(String situacaoAtual) {
 		this.situacaoAtual = situacaoAtual;
 	}
-
+	
+	public boolean finalizou() {
+		return fim;
+	}
+	
+	public boolean fim() {
+		fim = true;
+		return fim;
+	}
+	
 }
