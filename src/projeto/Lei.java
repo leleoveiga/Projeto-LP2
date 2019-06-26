@@ -5,6 +5,7 @@ public abstract class Lei {
 	protected String dni, ementa, interesses, url, codigo, situacaoAtual;
 	protected int ano;
 	protected boolean fim;
+	protected String proximoLocal;
 	
 	
 	public Lei(String dni, int ano ,String ementa, String interesses, String url, String codigo) {
@@ -15,6 +16,19 @@ public abstract class Lei {
 		this.ano = ano;
 		this.codigo = codigo;
 		this.fim = false;
+		this.proximoLocal = "CCJC";
+	}
+	
+	public String getDni() {
+		return dni;
+	}
+	
+	public void setProximoLocal(String proximoLocal) {
+		this.proximoLocal = proximoLocal;
+	}
+	
+	public String getProximoLocal() {
+		return proximoLocal;
 	}
 
 

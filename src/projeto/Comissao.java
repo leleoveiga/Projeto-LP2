@@ -7,12 +7,14 @@ import java.util.List;
 public class Comissao {
 	private String nome;
 	private List<String> deputados;
+	private List<String> leisVotadas;
 	private Validacao validacao;
 
 	public Comissao(String nome) {
 		this.deputados = new ArrayList<>();
 		this.setNome(nome);
 		this.validacao = new Validacao();
+		this.leisVotadas = new ArrayList<>();
 	}
 
 	public void adicionaDeputados(String dnis, HashMap<String ,Pessoa> pessoas) throws Exception {
@@ -34,6 +36,14 @@ public class Comissao {
 
 		
 
+	}
+	
+	public void vota(String codigo) {
+		leisVotadas.add(codigo);
+	}
+	
+	public boolean jaVotou(String codigo) {
+		return leisVotadas.contains(codigo);
 	}
 	
 	public int qntDeputados() {

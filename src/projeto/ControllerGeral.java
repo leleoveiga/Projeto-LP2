@@ -149,9 +149,7 @@ public class ControllerGeral {
 
 	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) throws Exception {
 		int votos = 0;
-		if (!comissoes.containsKey("CCJC")) {
-			throw new IllegalArgumentException("Erro ao votar proposta: CCJC nao cadastrada");
-		}
+		Lei lei = leis.get(codigo);
 		validacao.validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");
 		if (statusGovernista.equals("GOVERNISTA") || statusGovernista.equals("OPOSICAO")
 				|| statusGovernista.equals("LIVRE")) {
@@ -161,9 +159,23 @@ public class ControllerGeral {
 		} else {
 			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
 		}
+		if (lei != null) {
+			if (lei.getProximoLocal().equals("CCJC")) {
+				if (!comissoes.containsKey("CCJC")) {
+					throw new IllegalArgumentException("Erro ao votar proposta: CCJC nao cadastrada");
+				}
+			}
+		} else {
+			return false;
+		}
 		
-		for (int i = 0; i < comissoes.get("CCJC").qntDeputados(); i++) {
-			List<String> deputados = (List) comissoes.get("CCJC").getDeputados();
+		if(leis.get(codigo).getProximoLocal().equals("plenario")){
+			throw new Exception("Erro ao votar proposta: proposta encaminhada ao plenario");
+		}
+		
+
+		for (int i = 0; i < comissoes.get(lei.getProximoLocal()).qntDeputados(); i++) {
+			List<String> deputados = (List<String>) comissoes.get(lei.getProximoLocal()).getDeputados();
 			if (statusGovernista.equals("GOVERNISTA")) {
 				if (partidos.contains(pessoas.get(deputados.get(i)).getPartido())) {
 					votos++;
@@ -189,18 +201,40 @@ public class ControllerGeral {
 			}
 		}
 
-		int participantes = comissoes.get("CCJC").qntDeputados();
+		int participantes = comissoes.get(lei.getProximoLocal()).qntDeputados();
 		if (votos >= ((participantes / 2) + 1)) {
-			if(!leis.get(codigo).finalizou()) {
-				leis.get(codigo).fim();
+			
+			if (leis.get(codigo).getClass() == PL.class) {
+				PL leiPL = (PL) leis.get(codigo);
+				if (leiPL.getConclusivo()) {
+					leis.get(codigo).fim();
+				}
 			}
+			
 			leis.get(codigo).setSituacaoAtual("EM VOTACAO (" + proximoLocal + ")");
+			leis.get(codigo).setProximoLocal(proximoLocal);
+			if(proximoLocal.equals("-")) {
+				pessoas.get(lei.getDni()).adicionaLei();
+				leis.get(codigo).fim();
+				leis.get(codigo).setSituacaoAtual("APROVADO");
+			}
 			return true;
 		}
+		
+		if(proximoLocal.equals("-")) {
+			leis.get(codigo).fim();
+			leis.get(codigo).setSituacaoAtual("ARQUIVADO");
+		}
+//		if(lei.finalizou()) {
+//			throw new Exception("Erro ao votar proposta: tramitacao encerrada");
+//		}
 		return false;
 	}
 
 	public void votarPlenario(String codigo, String statusGovernista, String presentes) {
+		if(leis.get(codigo).finalizou()) {
+			throw new IllegalArgumentException( "Erro ao votar proposta: tramitacao encerrada");
+		}
 		PL lei = (PL) leis.get(codigo);
 		if (lei.getConclusivo()) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
