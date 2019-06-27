@@ -69,8 +69,8 @@ public class ECO {
 		return controllerGeral.votarComissao(codigo, statusGovernista, proximoLocal);
 	}
 
-	public void votarPlenario(String codigo, String statusGovernista, String presentes) {
-		controllerGeral.votarPlenario(codigo, statusGovernista, presentes);
+	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
+		return controllerGeral.votarPlenario(codigo, statusGovernista, presentes);
 	}
 
 }

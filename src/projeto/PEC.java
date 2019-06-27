@@ -17,14 +17,17 @@ public class PEC extends Lei {
 			artigosFormatado += i + ", ";
 		}
 		
-		if (turno == 0) {
-			if (proximoLocal.equals("plenario")) {
-				situacaoAtual = "EM VOTACAO (Plenario - 1o turno)";
+		
+		if (!fim) {
+			if (turno == 0) {
+				if (proximoLocal.equals("plenario")) {
+					situacaoAtual = "EM VOTACAO (Plenario - 1o turno)";
+				}
 			}
-		}
-		if (turno == 1) {
-			if (proximoLocal.equals("plenario")) {
-				situacaoAtual = "EM VOTACAO (Plenario - 2o turno)";
+			if (turno == 1) {
+				if (proximoLocal.equals("plenario")) {
+					situacaoAtual = "EM VOTACAO (Plenario - 2o turno)";
+				}
 			}
 		}
 

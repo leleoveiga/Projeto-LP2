@@ -243,7 +243,6 @@ public class ControllerGeral {
 	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
 		int votos = 0;
 		Lei lei = leis.get(codigo);
-		leis.get(codigo).addTurno();
 		String[] deputados = presentes.split(",");
 		if(deputados.length == 1 || deputados == null) {
 			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
@@ -257,7 +256,7 @@ public class ControllerGeral {
 				throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
 			}
 		}
-
+		
 		for (int i = 0; i < deputados.length; i++) {
 			if (statusGovernista.equals("GOVERNISTA")) {
 				if (partidos.contains(pessoas.get(deputados[i]).getPartido())) {
@@ -296,7 +295,15 @@ public class ControllerGeral {
 					leis.get(codigo).fim();
 					leis.get(codigo).setSituacaoAtual("APROVADO");
 				}
+				leis.get(codigo).addTurno();
 				return true;
+			}
+			
+			if(leiPL.getTurno() == 0) {
+				leis.get(codigo).fim();
+				leis.get(codigo).setSituacaoAtual("ARQUIVADO");
+				leis.get(codigo).addTurno();
+				return false;
 			}
 
 		}
@@ -319,14 +326,28 @@ public class ControllerGeral {
 					leis.get(codigo).fim();
 					leis.get(codigo).setSituacaoAtual("APROVADO");
 				}
+				leis.get(codigo).addTurno();
 				return true;
 			}
-
+			
+			if(leiPLP.getTurno() == 0) {
+				leis.get(codigo).fim();
+				leis.get(codigo).setSituacaoAtual("ARQUIVADO");
+				leis.get(codigo).addTurno();
+				return false;
+			}
+			
 		}
 		
 		if (lei.getClass() == PEC.class) {
 			PEC leiPEC = (PEC) leis.get(codigo);
-			if (votos >= (((deputados.length / 5)*3) + 1)) {
+			int qntDeputados = 0;
+			for(Pessoa pessoa: pessoas.values()) {
+				if (pessoa.verificaDeputado()) {
+					qntDeputados ++;
+				}
+			}
+			if (votos >= (((qntDeputados / 5)*3) + 1)) {
 				if(leiPEC.getTurno() == 0) {
 					leiPEC.addTurno();
 					leis.put(codigo, leiPEC);
@@ -336,13 +357,22 @@ public class ControllerGeral {
 					leis.get(codigo).fim();
 					leis.get(codigo).setSituacaoAtual("APROVADO");
 				}
+				leis.get(codigo).addTurno();
 				return true;
+			}
+			
+			if(leiPEC.getTurno() == 0) {
+				System.out.println(leiPEC.getTurno());
+				leis.get(codigo).fim();
+				leis.get(codigo).setSituacaoAtual("ARQUIVADO");
+				leis.get(codigo).addTurno();
+				return false;
 			}
 
 		}
 		
 		leis.get(codigo).setSituacaoAtual("ARQUIVADO");
-
+		leis.get(codigo).addTurno();
 		return false;
 	}
 
