@@ -11,18 +11,14 @@ public class PL extends Lei {
 		this.conclusivo = conclusivo;
 		this.vezesVotado = 0;
 	}
-	
-	
 
 	public int getVezesVotado() {
 		return vezesVotado;
 	}
 
 	public void setVezesVotado() {
-		this.vezesVotado ++;
+		this.vezesVotado++;
 	}
-
-
 
 	public String toString() {
 		String conclusiva;
@@ -31,7 +27,20 @@ public class PL extends Lei {
 		} else {
 			conclusiva = "";
 		}
+
+		if (turno == 0) {
+			if (proximoLocal.equals("plenario")) {
+				situacaoAtual = "EM VOTACAO (Plenario - 1o turno)";
+			}
+		}
+		if (turno == 1) {
+			if (proximoLocal.equals("plenario")) {
+				situacaoAtual = "EM VOTACAO (Plenario - 2o turno)";
+			}
+		}
+
 		return "Projeto de Lei - " + codigo + " - " + dni + " - " + ementa + " - " + conclusiva + situacaoAtual;
+
 	}
 
 	public boolean getConclusivo() {

@@ -11,6 +11,17 @@ public class PLP extends Lei {
 
 	@Override
 	public String toString() {
+		
+		if (turno == 0) {
+			if (proximoLocal.equals("plenario")) {
+				situacaoAtual = "EM VOTACAO (Plenario - 1o turno)";
+			}
+		}
+		if (turno == 1) {
+			if (proximoLocal.equals("plenario")) {
+				situacaoAtual = "EM VOTACAO (Plenario - 2o turno)";
+			}
+		}
 		return "Projeto de Lei Complementar - " + codigo + " - " + dni + " - " + ementa + " - " + artigos + " - "
 				+ situacaoAtual;
 	}

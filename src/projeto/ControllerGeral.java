@@ -165,8 +165,8 @@ public class ControllerGeral {
 					throw new IllegalArgumentException("Erro ao votar proposta: CCJC nao cadastrada");
 				}
 			}
-		} 
-		
+		}
+
 		if (leis.get(codigo).finalizou()) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
 		}
@@ -201,56 +201,149 @@ public class ControllerGeral {
 				}
 			}
 		}
-		
-		if (leis.get(codigo).getClass() == PL.class) {
-			PL leiPL = (PL) leis.get(codigo);
-		}
 
 		int participantes = comissoes.get(lei.getProximoLocal()).qntDeputados();
 		if (votos >= ((participantes / 2) + 1)) {
 
-			if (leis.get(codigo).getClass() == PL.class) {
-					if (!leis.get(codigo).getProximoLocal().equals("CCJC")) {
+			if (lei.getClass() == PL.class) {
+				PL leiPL = (PL) leis.get(codigo);
+				leiPL.setVezesVotado();
+				leis.put(codigo, leiPL);
+				if (leiPL.getConclusivo()) {
+					if (leiPL.getVezesVotado() == 2) {
+						pessoas.get(lei.getDni()).adicionaLei();
 						leis.get(codigo).fim();
-
+						leis.get(codigo).setSituacaoAtual("APROVADO");
+						return true;
+					}
 				}
 			}
 
 			leis.get(codigo).setSituacaoAtual("EM VOTACAO (" + proximoLocal + ")");
 			leis.get(codigo).setProximoLocal(proximoLocal);
-			if (proximoLocal.equals("-")) {
-				pessoas.get(lei.getDni()).adicionaLei();
-				leis.get(codigo).fim();
-				leis.get(codigo).setSituacaoAtual("APROVADO");
-			}
+
 			return true;
 		}
 
-		if (proximoLocal.equals("-")) {
-			leis.get(codigo).fim();
-			leis.get(codigo).setSituacaoAtual("ARQUIVADO");
-		}
-//		if(lei.finalizou()) {
-//			throw new Exception("Erro ao votar proposta: tramitacao encerrada");
-//		}
-		
-		if (leis.get(codigo).getClass() == PL.class) {
+		if (lei.getClass() == PL.class) {
+			PL leiPL = (PL) leis.get(codigo);
+			if (leiPL.getConclusivo()) {
+				leis.get(codigo).fim();
+				leis.get(codigo).setSituacaoAtual("ARQUIVADO");
+			}
 			if (leis.get(codigo).getProximoLocal().equals("CCJC")) {
 				leis.get(codigo).fim();
-
+			}
 		}
-	}
+
+		leis.get(codigo).setProximoLocal(proximoLocal);
 		return false;
 	}
 
-	public void votarPlenario(String codigo, String statusGovernista, String presentes) {
+	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
+		int votos = 0;
+		Lei lei = leis.get(codigo);
+		leis.get(codigo).addTurno();
+		String[] deputados = presentes.split(",");
+		if(deputados.length == 1 || deputados == null) {
+			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+		}
 		if (leis.get(codigo).finalizou()) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
 		}
-		PL lei = (PL) leis.get(codigo);
-		if (lei.getConclusivo()) {
-			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
+		if (lei.getClass() == PL.class) {
+			PL leiPL = (PL) leis.get(codigo);
+			if (leiPL.getConclusivo()) {
+				throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
+			}
 		}
+
+		for (int i = 0; i < deputados.length; i++) {
+			if (statusGovernista.equals("GOVERNISTA")) {
+				if (partidos.contains(pessoas.get(deputados[i]).getPartido())) {
+					votos++;
+				}
+			}
+			if (statusGovernista.equals("OPOSICAO")) {
+				if (!partidos.contains(pessoas.get(deputados[i]).getPartido())) {
+					votos++;
+				}
+			}
+			if (statusGovernista.equals("LIVRE")) {
+				String[] interessesDeputado = pessoas.get(deputados[i]).getInteresses().split(",");
+				String[] interessesLei = leis.get(codigo).getInteresses().split(",");
+				for (String interesseDeputado : interessesDeputado) {
+					for (String interesseLei : interessesLei) {
+						if (interesseDeputado.equals(interesseLei)) {
+							votos++;
+							break;
+						}
+						break;
+					}
+				}
+			}
+		}
+
+		if (lei.getClass() == PL.class) {
+			PL leiPL = (PL) leis.get(codigo);
+			if (votos >= ((deputados.length / 2) + 1)) {
+				if(leiPL.getTurno() == 0) {
+					leiPL.addTurno();
+					leis.put(codigo, leiPL);
+				}
+				if(leiPL.getTurno() == 1) {
+					pessoas.get(lei.getDni()).adicionaLei();
+					leis.get(codigo).fim();
+					leis.get(codigo).setSituacaoAtual("APROVADO");
+				}
+				return true;
+			}
+
+		}
+		
+		if (lei.getClass() == PLP.class) {
+			PLP leiPLP = (PLP) leis.get(codigo);
+			int qntDeputados = 0;
+			for(Pessoa pessoa: pessoas.values()) {
+				if (pessoa.verificaDeputado()) {
+					qntDeputados ++;
+				}
+			}
+			if (votos >= ((qntDeputados / 2) + 1)) {
+				if(leiPLP.getTurno() == 0) {
+					leiPLP.addTurno();
+					leis.put(codigo, leiPLP);
+				}
+				if(leiPLP.getTurno() == 1) {
+					pessoas.get(lei.getDni()).adicionaLei();
+					leis.get(codigo).fim();
+					leis.get(codigo).setSituacaoAtual("APROVADO");
+				}
+				return true;
+			}
+
+		}
+		
+		if (lei.getClass() == PEC.class) {
+			PEC leiPEC = (PEC) leis.get(codigo);
+			if (votos >= (((deputados.length / 5)*3) + 1)) {
+				if(leiPEC.getTurno() == 0) {
+					leiPEC.addTurno();
+					leis.put(codigo, leiPEC);
+				}
+				if(leiPEC.getTurno() == 1) {
+					pessoas.get(lei.getDni()).adicionaLei();
+					leis.get(codigo).fim();
+					leis.get(codigo).setSituacaoAtual("APROVADO");
+				}
+				return true;
+			}
+
+		}
+		
+		leis.get(codigo).setSituacaoAtual("ARQUIVADO");
+
+		return false;
 	}
 
 }

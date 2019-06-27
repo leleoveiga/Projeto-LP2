@@ -3,7 +3,7 @@ package projeto;
 public abstract class Lei {
 
 	protected String dni, ementa, interesses, url, codigo, situacaoAtual;
-	protected int ano;
+	protected int ano, turno;
 	protected boolean fim;
 	protected String proximoLocal;
 
@@ -16,7 +16,20 @@ public abstract class Lei {
 		this.codigo = codigo;
 		this.fim = false;
 		this.proximoLocal = "CCJC";
+		this.turno = 0;
 	}
+	
+	public int getTurno() {
+		return turno;
+	}
+
+
+
+	public void addTurno() {
+		this.turno ++;
+	}
+
+
 
 	public String getDni() {
 		return dni;
