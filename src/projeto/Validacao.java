@@ -102,7 +102,7 @@ public class Validacao {
 		if (calendario.get(Calendar.YEAR) < ano) {
 			throw new Exception("Erro ao cadastrar projeto: ano posterior ao ano atual");
 		}
-		if(ano<1988) {
+		if (ano < 1988) {
 			throw new Exception("Erro ao cadastrar projeto: ano anterior a 1988");
 		}
 	}
