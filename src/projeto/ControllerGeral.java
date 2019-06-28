@@ -221,7 +221,7 @@ public class ControllerGeral {
 
 			leis.get(codigo).setSituacaoAtual("EM VOTACAO (" + proximoLocal + ")");
 			leis.get(codigo).setProximoLocal(proximoLocal);
-
+			
 			return true;
 		}
 
@@ -310,23 +310,15 @@ public class ControllerGeral {
 		
 		if (lei.getClass() == PLP.class) {
 			PLP leiPLP = (PLP) leis.get(codigo);
-			int qntDeputados = 0;
-			for(Pessoa pessoa: pessoas.values()) {
-				if (pessoa.verificaDeputado()) {
-					qntDeputados ++;
-				}
-			}
-			if (votos >= ((qntDeputados / 2) + 1)) {
+			if (votos >= ((deputados.length / 2) + 1)) {
 				if(leiPLP.getTurno() == 0) {
-					leiPLP.addTurno();
-					leis.put(codigo, leiPLP);
+					leis.get(codigo).addTurno();
 				}
-				if(leiPLP.getTurno() == 1) {
+				else {
 					pessoas.get(lei.getDni()).adicionaLei();
 					leis.get(codigo).fim();
 					leis.get(codigo).setSituacaoAtual("APROVADO");
 				}
-				leis.get(codigo).addTurno();
 				return true;
 			}
 			
@@ -341,28 +333,19 @@ public class ControllerGeral {
 		
 		if (lei.getClass() == PEC.class) {
 			PEC leiPEC = (PEC) leis.get(codigo);
-			int qntDeputados = 0;
-			for(Pessoa pessoa: pessoas.values()) {
-				if (pessoa.verificaDeputado()) {
-					qntDeputados ++;
-				}
-			}
-			if (votos >= (((qntDeputados / 5)*3) + 1)) {
+			if (votos >= (((deputados.length / 5)*3) + 1)) {
 				if(leiPEC.getTurno() == 0) {
-					leiPEC.addTurno();
-					leis.put(codigo, leiPEC);
+					leis.get(codigo).addTurno();
 				}
-				if(leiPEC.getTurno() == 1) {
+				else {
 					pessoas.get(lei.getDni()).adicionaLei();
 					leis.get(codigo).fim();
 					leis.get(codigo).setSituacaoAtual("APROVADO");
 				}
-				leis.get(codigo).addTurno();
 				return true;
 			}
 			
 			if(leiPEC.getTurno() == 0) {
-				System.out.println(leiPEC.getTurno());
 				leis.get(codigo).fim();
 				leis.get(codigo).setSituacaoAtual("ARQUIVADO");
 				leis.get(codigo).addTurno();
